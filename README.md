@@ -1,97 +1,69 @@
-# AI Trends Analysis in the Job Market
+# Workplace Absenteeism Data Analysis
 
-This project analyzes the adoption trends of artificial intelligence across different countries, sectors, and skill domains based on job posting data.
-
-## Description
-
-The analysis covers several dimensions:
-- Geographic trends in AI adoption
-- Business sectors most affected by AI
-- Most in-demand AI skills
-- Future growth predictions
-- Impact of generative AI
+This project analyzes workplace absenteeism data and generates visualizations to identify trends and factors influencing employee absences.
 
 ## Prerequisites
 
-- Python 3.7+
-- pip (Python package manager)
-- Virtual environment (recommended)
+To run this project, you need Python 3.7+ and the following libraries:
+
+```
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+```
 
 ## Installation
 
-1. Clone this repository (if not already done)
+1. Clone this repository or download the source files
+
+2. Install the required dependencies:
 
 ```bash
-git clone <repo-url>
-cd data_analyse_finals
-```
-
-2. Create and activate a virtual environment (recommended)
-
-```bash
-# On Windows
-python -m venv monenv
-monenv\Scripts\activate
-
-# On macOS/Linux
-python -m venv monenv
-source monenv/bin/activate
-```
-
-3. Install dependencies
-
-```bash
-pip install -r requirement.txt
+pip install pandas numpy matplotlib seaborn scikit-learn
 ```
 
 ## Project Structure
 
 ```
-.
-├── data_analysis.py      # Main analysis script
-├── requirement.txt       # Project dependencies
-├── dataset/              # Source data
-│   ├── fig_4.2.1.csv     # Geographic data
-│   ├── fig_4.2.2.csv     # Skill cluster data
-│   ├── fig_4.2.3.csv     # Specific skills data
-│   ├── fig_4.2.4.csv     # Generative AI jobs data
-│   ├── fig_4.2.5.csv     # Generative AI skills data
-│   └── fig_4.2.6.csv     # Sectoral data
-├── output/               # Folder for generated visualizations
-└── README.md             # This file
+project/
+│
+├── dataset/
+│   └── Absenteeism_data.csv    # Absenteeism dataset file
+│
+├── output/                     # Folder containing generated visualizations
+│
+├── main.py                     # Main data analysis script
+│
+└── README.md                   # This file
 ```
 
-## Usage
+## Running the Project
 
-To run the complete analysis, simply execute:
+1. Make sure the dataset file is present in the `dataset/` folder
+
+2. Run the main script:
 
 ```bash
-python data_analysis.py
+python main.py
 ```
 
-This script will:
-1. Load data from the various CSV files
-2. Perform various analyses (geographic, sectoral, skills)
-3. Generate visualizations in the `output/` folder
-4. Display results and recommendations
+3. Visualizations will be generated in the `output/` folder
 
-## Features
+## Generated Visualizations
 
-- **Geographic Analysis**: AI adoption trends by country
-- **Sectoral Analysis**: AI impacts by business sector
-- **Skills Analysis**: Most in-demand AI skills
-- **Predictions**: Growth projections for upcoming years
-- **Recommendations**: Suggestions based on identified opportunities
+The script generates the following visualizations:
 
-## Notes
+1. `evolution_absenteisme.png` - Evolution and projection of absenteeism over time
+2. `correlation_matrix.png` - Correlation matrix between variables
+3. `raisons_absence.png` - Top 10 reasons for absence
+4. `absence_par_mois.png` - Average hours of absence by month
+5. `facteurs_importants.png` - Relative importance of factors influencing absenteeism
+6. `distribution_age.png` - Distribution of employee ages
+7. `opportunite_reduction.png` - Potential productivity gains under different scenarios
+8. `impact_attendu.png` - Expected impact of intervention program on absenteeism
 
-- Make sure the `output/` folder exists before running the analysis. If it doesn't exist, create it:
-```bash
-mkdir output
-```
+## Contact
 
-- All generated charts will be saved in PNG format in this folder.
-
-## License
-
-[Specify your license here]
+For any questions regarding this project, please contact [your@email.com]. 
