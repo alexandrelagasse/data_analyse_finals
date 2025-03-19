@@ -183,30 +183,61 @@ plt.tight_layout()
 plt.savefig('output/opportunite_reduction.png', dpi=300, bbox_inches='tight')
 plt.close()
 
+# Définition des années pour le graphique
 years = [max(df['Year']), max(df['Year'])+1, max(df['Year'])+2, max(df['Year'])+3]
 current = yearly_data_processed[yearly_data_processed['Year'] == max(yearly_data_processed['Year'])]['Absenteeism Time in Hours'].values[0]
+
+# Calcul des projections sans intervention
 projected = [current]
 for i in range(1, 4):
     projected.append(p(years[i]))
 
-with_program = [current]
+# Calcul des projections avec programme (réduction fixe de 15%)
+with_program = [current]  # Même point de départ
 for i in range(1, 4):
-    reduction = 0.05 * i
-    with_program.append(projected[i] * (1 - reduction))
+    # Appliquer une réduction constante de 15% au lieu de 5% * i
+    with_program.append(projected[i] * (1 - 0.15))
 
-plt.figure(figsize=(12, 6))
-plt.plot(years, projected, 'r--', marker='o', linewidth=2, label='Without Intervention')
-plt.plot(years, with_program, 'g-', marker='s', linewidth=2, label='With Program')
+# Création du graphique avec le style de "Evolution and Projection"
+plt.figure(figsize=(14, 8))  # Même taille que le graphique d'évolution
 
+# Tracer les courbes avec le style adapté
+plt.plot(years, projected, 'o--', linewidth=3, markersize=10, color='#FF5252', label='Without Intervention')
+plt.plot(years, with_program, 'o-', linewidth=3, markersize=10, color='#4CAF50', label='With Program')
+
+# Ajout d'une zone d'incertitude pour les projections (comme dans Evolution and Projection)
+plt.fill_between(years[1:], 
+                 [p * 0.9 for p in projected[1:]], 
+                 [p * 1.1 for p in projected[1:]], 
+                 color='#FF5252', alpha=0.2)
+
+# Affichage des valeurs sur les points
 for i, year in enumerate(years):
-    plt.text(year, projected[i] + 50, f"{int(projected[i])} hrs", ha='center', color='red')
-    plt.text(year, with_program[i] - 50, f"{int(with_program[i])} hrs", ha='center', color='green')
+    plt.text(year, projected[i] + 70, f"{int(projected[i])} hrs", ha='center', color='#FF5252', fontweight='bold', fontsize=11)
+    if i > 0:  # Ne pas afficher pour l'année de départ
+        plt.text(year, with_program[i] - 70, f"{int(with_program[i])} hrs", ha='center', color='#4CAF50', fontweight='bold', fontsize=11)
 
-plt.title('Expected Impact of the Program on Absenteeism', fontsize=16)
-plt.xlabel('Year', fontsize=12)
-plt.ylabel('Hours of Absence', fontsize=12)
+# Ajout de l'annotation sur l'impact du programme
+plt.annotate('15% Reduction with Program', 
+             xy=(years[2], with_program[2]), 
+             xytext=(years[1], with_program[2] - 200),
+             arrowprops=dict(facecolor='green', shrink=0.05, width=2),
+             fontsize=14, fontweight='bold', color='#4CAF50')
+
+# Finalisation du graphique avec le même style que "Evolution and Projection"
+plt.title('Expected Impact of the Program on Absenteeism', fontsize=20, fontweight='bold', pad=20)
+plt.xlabel('Year', fontsize=14, fontweight='bold')
+plt.ylabel('Total Hours of Absence', fontsize=14, fontweight='bold')
+plt.xticks(years, fontsize=12)
+plt.yticks(fontsize=12)
 plt.grid(True, linestyle='--', alpha=0.7)
-plt.legend()
+plt.legend(fontsize=12, loc='upper left')
+
+# Définir les limites des axes en fonction des données
+y_min = min(min(projected), min(with_program)) * 0.9
+y_max = max(projected) * 1.15
+plt.ylim(y_min, y_max)
+
 plt.tight_layout()
 plt.savefig('output/impact_attendu.png', dpi=300, bbox_inches='tight')
 plt.close()
